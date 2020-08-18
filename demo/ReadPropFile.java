@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class ReadPropFile {
@@ -25,7 +26,8 @@ public class ReadPropFile {
 		String txt = prop.getProperty("searchItem");
 		if(browser.equals("chrome")) {
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\DELL\\Downloads\\chromedriver_win32\\chromedriver.exe");
-			driver = new ChromeDriver();
+			//driver = new ChromeDriver();
+			driver = new HtmlUnitDriver();
 		}
 		else if(browser.equals("FF")) {
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\DELL\\Downloads\\chromedriver_win32\\geckodriver.exe");
@@ -39,10 +41,11 @@ public class ReadPropFile {
 		driver.findElement(By.xpath(input)).sendKeys(txt);
 		driver.findElement(By.xpath(search)).click();
 		Set<String> handles = driver.getWindowHandles();
+		System.out.println("Before :"+driver.getTitle());
 		for(String actual: handles) {
 			driver.switchTo().window(actual);
 		}
-		System.out.println(driver.getTitle());
+		System.out.println("After :"+driver.getTitle());
 		}
 
 }
